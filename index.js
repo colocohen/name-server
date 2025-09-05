@@ -1,5 +1,5 @@
 /*
- * name-server: DNS server for Node.js
+ * dnssec-server: DNS server for Node.js
  * Copyright 2025 colocohen
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -9,7 +9,7 @@
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * This file is part of the open-source project hosted at:
- *     https://github.com/colocohen/name-server
+ *     https://github.com/colocohen/dnssec-server
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,

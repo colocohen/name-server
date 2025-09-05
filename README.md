@@ -1,26 +1,26 @@
 <p align="center">
-  <img src="https://github.com/colocohen/name-server/raw/main/name-server.svg" width="550" alt="name-server"/>
+  <img src="https://github.com/colocohen/dnssec-server/raw/main/dnssec-server.svg" width="550" alt="dnssec-server"/>
 </p>
 
-<h1 align="center">name-server</h1>
+<h1 align="center">dnssec-server</h1>
 
 <p align="center">
   <em>📡 Authoritative DNS server with real-time DNSSEC for Node.js</em>
 </p>
 
 <p align="center" style="max-width: 720px; margin: auto;">
-  <strong>name-server</strong> brings modern, flexible DNS to the Node.js ecosystem.  
+  <strong>dnssec-server</strong> brings modern, flexible DNS to the Node.js ecosystem.  
   Instead of managing static zone files or running heavyweight daemons like BIND, you can now compute DNS answers directly in JavaScript.  
   Every response can be signed at runtime with DNSSEC, records can be generated dynamically (Geo-LB, canary, service discovery), and modern RR types are supported out of the box.  
   All with a lightweight API, easy integration, and zero complex configuration.
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/name-server">
-    <img src="https://img.shields.io/npm/v/name-server?color=blue" alt="npm">
+  <a href="https://www.npmjs.com/package/dnssec-server">
+    <img src="https://img.shields.io/npm/v/dnssec-server?color=blue" alt="npm">
   </a>
   <img src="https://img.shields.io/badge/status-in%20development-yellow" alt="status">
-  <img src="https://img.shields.io/github/license/colocohen/name-server?color=brightgreen" alt="license">
+  <img src="https://img.shields.io/github/license/colocohen/dnssec-server?color=brightgreen" alt="license">
 </p>
 
 ---
@@ -67,7 +67,7 @@ For modern stacks that are **API-driven, containerized, and globally distributed
 
 ---
 
-**name-server** takes a different approach: it is a **pure JavaScript authoritative DNS server** designed to live *inside your Node.js application* and give you **DNS as code**.  
+**dnssec-server** takes a different approach: it is a **pure JavaScript authoritative DNS server** designed to live *inside your Node.js application* and give you **DNS as code**.  
 
 - 🛡️ **DNSSEC at runtime** — responses are signed on the fly (RRSIG, DNSKEY, NSEC/NSEC3). No offline signer, no cron jobs, no external toolchain.  
 - ⚡ **Dynamic zones** — answers are computed from logic you write in JavaScript. Use client IP/ECS to return the nearest PoP, shift traffic with weighted canaries, or implement feature-flagged DNS in seconds.  
@@ -77,20 +77,20 @@ For modern stacks that are **API-driven, containerized, and globally distributed
 
 ---
 
-This makes **name-server** especially useful when:
+This makes **dnssec-server** especially useful when:
 - You want DNS decisions tied directly to application logic (load balancing, canaries, failover).  
 - You need DNSSEC but don’t want to manage signing infrastructure.  
 - You’re building modern protocols (`HTTPS`/`SVCB`, `ECH`, `DoT`) and need a flexible testbed.  
 - You want to prototype quickly without carrying the weight of BIND/NSD.  
 
-In short: **name-server** lets you treat DNS as part of your codebase — not as an external, opaque system.
+In short: **dnssec-server** lets you treat DNS as part of your codebase — not as an external, opaque system.
 
 ---
 
 # 📦 Install
 
 ```bash
-npm i name-server
+npm i dnssec-server
 ```
 
 ---
@@ -102,7 +102,7 @@ Below is a minimal authoritative server (UDP/TCP by default; enable DNS‑over�
 ```js
 const fs = require('fs');
 const tls = require('tls');
-const DNSServer = require('name-server');
+const DNSServer = require('dnssec-server');
 
 DNSServer.createServer({
   tls: { // enable DNS over TLS (DoT) on port 853 by default
@@ -201,7 +201,7 @@ Properties commonly used in logic:
 
 ## 🔧 `encodeMessage` / `decodeMessage`
 
-For advanced use cases, **name-server** also exposes low-level primitives to
+For advanced use cases, **dnssec-server** also exposes low-level primitives to
 **parse** and **serialize** raw DNS messages.  
 This is useful if you want to:
 
@@ -210,7 +210,7 @@ This is useful if you want to:
 - Unit-test DNS record encoding/decoding without running a full server.  
 
 ```js
-const { encodeMessage, decodeMessage } = require('name-server');
+const { encodeMessage, decodeMessage } = require('dnssec-server');
 
 // Decode a raw DNS query from a Buffer/Uint8Array
 const query = decodeMessage(rawBuffer);
@@ -241,7 +241,7 @@ This section explains how to generate DNSSEC material with the helper function a
 You can either **provide your own private keys** (Base64 string or `Uint8Array`), or leave them empty and the function will **auto‑generate random secure keys**.
 
 ```js
-const DNSServer = require('name-server');
+const DNSServer = require('dnssec-server');
 
 // Auto-generate keys
 const dnssec_material_obj = DNSServer.buildDnssecMaterial({ signersName: "example.com." });
@@ -299,10 +299,10 @@ Example:
 
 ## 3. Wire DNSSEC into the server
 
-The library **handles DNSSEC automatically**. Just pass the object returned by `buildDnssecMaterial` into the server via `dnssec.keyCallback`. No manual DNSKEY publishing is needed — `name-server` will expose the DNSKEYs and serve signed responses.
+The library **handles DNSSEC automatically**. Just pass the object returned by `buildDnssecMaterial` into the server via `dnssec.keyCallback`. No manual DNSKEY publishing is needed — `dnssec-server` will expose the DNSKEYs and serve signed responses.
 
 ```js
-const DNSServer = require('name-server');
+const DNSServer = require('dnssec-server');
 
 // 1) Generate (or load) DNSSEC material
 const dnssec_material_obj = DNSServer.buildDnssecMaterial({
@@ -1019,11 +1019,11 @@ Types preserved as raw (round-trip only): `EID`, `NIMLOC`, `ATMA`, `SINK`, `NINF
 
 # 🗺️ Roadmap
 
-The core API is stable, but several enhancements are planned to make **name-server** even more production-ready:
+The core API is stable, but several enhancements are planned to make **dnssec-server** even more production-ready:
 
 - 📂 **Zone file parser / migration tools**
   - Parser for standard BIND-style zone files.
-  - Convert static zone files into `name-server` dynamic objects.
+  - Convert static zone files into `dnssec-server` dynamic objects.
   - Optional exporter back to zone file format for interoperability.
 
 - 🛡️ **DNSSEC optimizations**
@@ -1050,7 +1050,7 @@ The core API is stable, but several enhancements are planned to make **name-serv
 
 ---
 
-💡 *Want something added? Open a [discussion](https://github.com/colocohen/name-server/discussions) or file an issue with the tag `roadmap`. Contributions and proposals are welcome!*
+💡 *Want something added? Open a [discussion](https://github.com/colocohen/dnssec-server/discussions) or file an issue with the tag `roadmap`. Contributions and proposals are welcome!*
 
 ---
 
@@ -1074,7 +1074,7 @@ If this library saves you time, consider supporting:
 - ⭐ **Star** the repo — helps visibility.
 - 🐛 **Issues/PRs** — report bugs, propose features.
 - 💖 **Sponsorships** — GitHub Sponsors or your preferred platform.
-- 🧪 **Production stories** — share how you use `name-server` (helps guide roadmap).
+- 🧪 **Production stories** — share how you use `dnssec-server` (helps guide roadmap).
 
 > For commercial support or consulting, please open an issue titled **[support]** and we’ll coordinate privately.
 

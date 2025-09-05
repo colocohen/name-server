@@ -1,0 +1,50 @@
+{
+  "name": "name-server",
+  "version": "0.1.0",
+  "description": "📡 Pure JavaScript authoritative DNS server for Node.js with built-in DNSSEC, dynamic zones, and modern record support.",
+  "main": "index.js",
+  "type": "commonjs",
+  "keywords": [
+    "backend",
+    "packet",
+    "encodings",
+    "encoding",
+    "encoder",
+    "abstract-encoding",
+    "dns",
+    "dns-packet",
+    "dnssec",
+    "authoritative-dns",
+    "nodejs",
+    "javascript",
+    "edns",
+    "ecs",
+    "doh",
+    "doq",
+    "dns-over-tls",
+    "svcb",
+    "https-record",
+    "tlsa",
+    "nsec3",
+    "zone-file",
+    "bind",
+    "named",
+    "resolver",
+    "load-balancer",
+    "service-discovery"
+  ],
+  "author": "colocohen",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/colocohen/name-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/colocohen/name-server/issues"
+  },
+  "homepage": "https://github.com/colocohen/name-server#readme",
+  "dependencies": {
+    "@noble/curves": ">=1.9.6",
+    "@noble/hashes": ">=1.8.0"
+  }
+}

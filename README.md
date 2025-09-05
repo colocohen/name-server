@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/colocohen/dnssec-server/raw/main/dnssec-server.svg" width="550" alt="dnssec-server"/>
+  <img src="https://github.com/colocohen/dnssec-server/raw/main/dnssec-server.svg" width="100%" alt="dnssec-server"/>
 </p>
 
 <h1 align="center">dnssec-server</h1>
